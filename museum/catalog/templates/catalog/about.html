@@ -1,0 +1,138 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>О нас</title>
+{% endblock title %}
+
+{% block text %}
+<style>
+  #text {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 20px auto;
+    max-width: 900px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #444;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.1em;
+  }
+
+  .about-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+    transform: scale(0.9);
+    object-fit: cover;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hidden-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 1s ease, opacity 1s ease;
+  }
+
+  .hidden-content.visible {
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  .reveal-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .reveal-btn:hover {
+    background-color: #004099;
+  }
+</style>
+
+<div id="text">
+  <h2>О нас</h2>
+  <p>Минский Музей Искусств и Культуры — это уникальное место, расположенное в самом сердце Минска,
+    которое приглашает вас на захватывающее путешествие в историю и культурное наследие Беларуси.
+  </p>
+
+  <img id="img1" class="about-img" src="{% static 'img/about/museum_1.jpg' %}" alt="Музей">
+
+  <p>
+    Наш музей был основан в 1985 году группой энтузиастов, которые стремились сохранить и
+    передать будущим поколениям богатство и разнообразие белорусской культуры.
+    С тех пор Минский Музей Искусств и Культуры стал неотъемлемой частью культурной сцены Минска.
+  </p>
+
+  <button class="reveal-btn" onclick="toggleContent('hidden1')">Показать больше</button>
+
+  <div id="hidden1" class="hidden-content">
+    <p>
+      Мы гордимся тем, что предлагаем уникальные выставки, посвященные истории,
+      искусству и культуре Беларуси. Наша коллекция включает в себя драгоценные артефакты,
+      произведения искусства, а также интерактивные экспозиции.
+    </p>
+    <img id="img2" class="about-img" src="{% static 'img/about/museum_2.jpg' %}" alt="Выставка">
+  </div>
+
+  <button class="reveal-btn" onclick="toggleContent('hidden2')">Узнать больше</button>
+
+  <div id="hidden2" class="hidden-content">
+    <p>
+      Мы стремимся создать уникальный опыт для каждого посетителя, предлагая
+      разнообразные программы и мероприятия: мастер-классы, лекции и специальные выставки.
+    </p>
+    <img id="img3" class="about-img" src="{% static 'img/about/museum_3.jpg' %}" alt="Экспонат">
+  </div>
+
+  <p>
+    Минский Музей Искусств и Культуры является не только хранителем культурного наследия Беларуси,
+    но и активным участником его развития. Мы поддерживаем местных художников, исследователей и творцов.
+  </p>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll('.about-img');
+    images.forEach(img => {
+      setTimeout(() => {
+        img.classList.add('fade-in');
+      }, 500);
+    });
+  });
+
+  function toggleContent(id) {
+    const content = document.getElementById(id);
+    if (content.classList.contains('visible')) {
+      content.classList.remove('visible');
+    } else {
+      content.classList.add('visible');
+    }
+  }
+</script>
+{% endblock text %}

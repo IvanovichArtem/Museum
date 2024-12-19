@@ -1,0 +1,99 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>{{ title }}</title>
+{% endblock title %}
+
+{% block text %}
+<div class="row justify-content-start">
+    <h1>{{ title }}</h1>
+    {% for exhibit in exhibitions %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-0 rounded">
+            <!-- Анимация увеличения изображения при наведении -->
+            <div class="img-container">
+                <img class="card-img-top rounded-top img-hover" src="{{ exhibit.img.url }}" alt="">
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">
+                    <p>{{ exhibit.name }}</p>
+                    <p>{{ exhibit.age_limit }}+</p>
+                </h4>
+                <h5>
+                    {% if exhibit.price == 0 %}
+                    Бесплатно!!!
+                    {% else %}
+                    {{ exhibit.price }} руб.
+                    {% endif %}
+                </h5>
+                <p class="card-text"
+                    style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">
+                    {{ exhibit.description }}</p>
+
+            </div>
+            <div class="card-footer text-center">
+                <!-- Кнопка для покупки билета -->
+                <a class="btn btn-outline-success" href="{% url 'catalog:basket_add' exhibit.id %}"
+                    onclick="updateBasketCount();">
+                    Купить билет
+                </a>
+                <!-- Добавлена кнопка для перехода к арт-работам -->
+                <a class="btn btn-outline-info" href="{% url 'catalog:art_pieces' exhibit.id %}">
+                    Интерактивная выставка
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+<div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item {% if not exhibitions.has_previous %} disabled {% endif %}">
+                <a class="page-link"
+                    href="{% if exhibitions.has_previous %} {% url 'catalog:exhibition_paginator' exhibitions.previous_page_number %} {% else %} '#' {% endif %}">
+                    Предыдущая
+                </a>
+            </li>
+
+            {% for page in exhibitions.paginator.page_range %}
+            <li class="page-item {% if exhibitions.number == page %} active {% endif %}">
+                <a class="page-link" href="{% url 'catalog:exhibition_paginator' page %}">
+                    {{ page }}
+                </a>
+            </li>
+            {% endfor %}
+
+            <li class="page-item {% if not exhibitions.has_next %} disabled {% endif %}">
+                <a class="page-link"
+                    href="{% if exhibitions.has_next %} {% url 'catalog:exhibition_paginator' exhibitions.next_page_number %} {% else %} '#' {% endif %}">
+                    Следующая
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock text %}
+
+{% block styles %}
+<style>
+    /* Анимация увеличения изображения при наведении */
+    .img-container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .img-hover {
+        transition: transform 0.3s ease-in-out;
+        /* Плавная анимация */
+    }
+
+    .img-hover:hover {
+        transform: scale(1.1);
+        /* Увеличение изображения при наведении */
+    }
+</style>
+{% endblock styles %}

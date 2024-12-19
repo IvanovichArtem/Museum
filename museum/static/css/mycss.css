@@ -1,0 +1,118 @@
+/* Шрифты */
+@font-face {
+  font-family: "Muli";
+  src: local("../fonts/Muli-Regular.ttf");
+}
+
+/* Общие стили для ссылок */
+.nav-link {
+  font-size: 18pt;
+  color: black;
+  font-family: "Muli";
+  position: relative;
+  text-decoration: none;
+  opacity: 1;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Стиль для активной ссылки */
+.nav-link.active::after {
+  width: 100%; /* Подчеркивание всегда видно для активной ссылки */
+}
+
+/* Navbar */
+.navbar {
+  height: 90px;
+}
+
+.nav-item {
+  padding-left: 30pt;
+  padding-right: 30pt;
+}
+
+/* Логотип */
+.logo {
+  height: 70px;
+  width: 70px;
+}
+
+/* Иконки */
+.icon {
+  height: 30px;
+  width: 30px;
+}
+
+/* Разделительная линия */
+hr {
+  position: relative;
+  border: none;
+  height: 15px;
+  background: rgb(255, 0, 0);
+}
+
+/* Текстовый блок */
+#text {
+  margin-left: 80px;
+  width: 1000px;
+}
+
+#text h2 {
+  font-size: 30pt;
+}
+
+#text p {
+  font-size: 16pt;
+}
+
+/* Карусель */
+.my-carousel {
+  padding: 0;
+}
+
+.my-carousel .carousel-item {
+  display: flex;
+  max-height: 500px;
+}
+
+.my-carousel .carousel-item img {
+  object-fit: cover;
+}
+
+/* Дополнительный текст */
+.slide-text {
+  font-size: 25pt;
+}
+
+/* Изображения About */
+.about-img {
+  width: 800px;
+}
+
+.row {
+  width: 1254.4px;
+  margin-left: 150px;
+}
+
+/* Жирный текст */
+.text-bold {
+  font-size: 32px;
+}

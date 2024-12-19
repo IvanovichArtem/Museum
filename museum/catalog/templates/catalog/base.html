@@ -1,0 +1,149 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %} {% endblock title %}
+  <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+  <link href={% static "css/mycss.css" %} rel="stylesheet">
+  <style>
+    #cart-animation {
+      right: 0;
+      top: -10px;
+      font-size: 1.2rem;
+      pointer-events: none;
+      transform: translateY(0px);
+      opacity: 0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-light bg-white">
+    <div class="container-fluid mx-auto">
+      <a class="navbar-brand" style="margin-left: 100px;" href={% url "catalog:home" %}>
+        <img class="logo" src={% static "img/museum-logo.avif" %}></a>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarID">
+        <div class="navbar-nav">
+          <a class="nav-link" aria-current="page" href={% url 'catalog:about' %}>О нас</a>
+          <a class="nav-link" aria-current="page" href={% url "catalog:exhibition" %}>Выставки</a>
+          <a class="nav-link" aria-current="page" href={% url "catalog:events" %}>События</a>
+          <a class="nav-link" aria-current="page" href={% url "catalog:contacts" %}>Контакты</a>
+          <a class="nav-link" aria-current="page" href={% url "shop:index" %}>Магазин</a>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <div class='col-md-3'>
+        <a class="btn btn-outline-dark me-2 position-relative" href="{% url 'user:basket' %}" role="button">
+          <img src="{% static 'img/icons/cart-icon.png' %}" alt="Корзина" class="icon">
+          <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" id="cart-count"
+            style="display: none;">0</span>
+          <span id="cart-animation" class="position-absolute text-success fw-bold" style="display: none;">+1</span>
+        </a>
+
+
+        {% if user.is_staff %}
+        <a class="btn btn-outline-dark me-2" href="http://localhost:8000/admin" role="button">Админка</a>
+        {% else %}
+        <a class="btn btn-outline-dark me-2" href="{% url 'user:profile' user.id %}" role="button">Профиль</a>
+        {% endif %}
+        <a class="btn btn-dark" href={% url "user:logout" %} role="button">Выйти</a>
+      </div>
+      {% else %}
+      <div class="col-md-3">
+        <a class="btn btn-outline-dark me-2" href={% url "user:login" %} role="button">Войти</a>
+        <a class="btn btn-dark" href={% url "user:registration" %} role="button">Зарегистрироваться</a>
+      </div>
+      {% endif %}
+    </div>
+  </nav>
+  <hr>
+
+  {% block carousel %}{% endblock carousel %}
+  {% block text %}{% endblock text %}
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <p style="color: white;">Сайт создан для ознакомления с разработкой Django</p>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/IvanovichArtem">
+              <img class="icon" src="{% static 'img/icons/github-icon.png' %}" alt="GitHub">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://t.me"><img class="icon" src="{% static 'img/icons/telegram-icon.png' %}"></a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/IvanovichArtem/Museum-Site"><img class="icon"
+                src="{% static 'img/icons/download-icon.png' %}"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <script src={% static "js/bootstrap.bundle.min.js" %}></script>
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function updateBasketCount() {
+      let basketCount = parseInt(getCookie('basket_count')) || 0;
+      basketCount += 1;
+      setCookie('basket_count', basketCount, 7);
+
+      const cartCountElement = document.getElementById('cart-count');
+      cartCountElement.innerText = basketCount;
+      cartCountElement.style.display = 'block';
+
+      const cartAnimation = document.getElementById('cart-animation');
+      cartAnimation.style.display = 'block';
+      cartAnimation.style.opacity = '1';
+      cartAnimation.style.transform = 'translateY(0px)';
+
+      setTimeout(() => {
+        cartAnimation.style.transition = 'opacity 1s, transform 1s';
+        cartAnimation.style.opacity = '0';
+        cartAnimation.style.transform = 'translateY(-20px)';
+      }, 100);
+
+      setTimeout(() => {
+        cartAnimation.style.display = 'none';
+        cartAnimation.style.transition = '';
+      }, 1100);
+    }
+  </script>
+
+
+</body>
+
+</html>

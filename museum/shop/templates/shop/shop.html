@@ -1,0 +1,103 @@
+{% extends "shop/base.html" %}
+
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block text %}
+<div class="x">
+
+    <div class="row">
+
+        <div class="col-lg-2">
+            <h1 class="my-4">Каталог</h1>
+            <div class="list-group">
+                {% for category in categories %}
+                <a href="{% url 'shop:category' category.id %}"
+                    class="list-group-item {% if category.id == current_category.id %} active {% endif %}">
+                    {{ category }}
+                </a>
+                {% endfor %}
+            </div>
+            <a href="{% url 'shop:index' %}" class="btn btn-outline-secondary mt-3">Сбросить фильтр</a>
+        </div>
+
+        <div class="col-lg-10">
+
+            {% if products %}
+            <div class="row">
+                {% for product in products %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#">
+                            <img class="card-img-top img-fluid" src="{{ product.img.url }}" alt=""
+                                style="max-height: 200px; object-fit: cover;">
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <p>{{ product.name }}</p>
+                            </h4>
+                            <h5>{{ product.price }} руб.</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-success btn-block" href="{% url 'shop:basket_add' product.id %}">
+                                Добавить в корзину
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
+                        <a class="page-link"
+                            href="{% if products.has_previous %}{% url 'shop:products_paginator' products.previous_page_number %}{% else %}#{% endif %}">
+                            Предыдущая
+                        </a>
+                    </li>
+                    {% for page in products.paginator.page_range %}
+                    <li class="page-item {% if products.number == page %} active {% endif %}">
+                        <a class="page-link" href="{% url 'shop:products_paginator' page %}">
+                            {{ page }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                        <a class="page-link"
+                            href="{% if products.has_next %}{% url 'shop:products_paginator' products.next_page_number %}{% else %}#{% endif %}">
+                            Следующая
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            {% else %}
+            <p>Нет товаров по заданным условиям.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+    <br>
+</div>
+
+<style>
+    body {
+        overflow-x: hidden;
+        /* Убирает горизонтальный скролл */
+    }
+
+    img {
+        max-width: 100%;
+        /* Ограничивает ширину изображения */
+        height: auto;
+        /* Сохраняет пропорции */
+    }
+</style>
+
+{% endblock text %}

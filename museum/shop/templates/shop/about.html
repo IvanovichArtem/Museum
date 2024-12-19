@@ -1,0 +1,126 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block text %}
+<div id='text' class="shop-content">
+    <div class="container">
+        <h1 class="text-center text-primary">{{ title }}</h1>
+
+        <div class="shop-description">
+            <strong class="text-bold">
+                О магазине
+            </strong>
+            <br><br>
+            <p>
+                В третьем корпусе нашего музея работает магазин, в котором представлены сувениры нашего музея и печатная
+                продукция.
+            </p>
+        </div>
+
+        <div class="shop-items">
+            <strong class="text-bold">
+                Здесь можно купить:
+            </strong>
+            <br><br>
+            <ul>
+                <li>
+                    <p>Картины молодых белорусских художников, выполненные в различных стилях рисования: готика,
+                        ренессанс, барокко, импрессионизм, экспрессионизм, абстракционизм и т.д.</p>
+                </li>
+                <li>
+                    <p>Сувениры о Минске.</p>
+                </li>
+                <li>
+                    <p>Эксклюзивные музейные сувениры: косынки с орнаментом, оригинальные значки и т.п.</p>
+                </li>
+                <li>
+                    <p>Печатную продукцию: книги белорусских авторов, детские книги, подарочные издания по искусству и
+                        истории города.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+{% endblock text %}
+
+{% block styles %}
+<style>
+    .shop-content {
+        background: url('https://i.gifer.com/7iit.gif') no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+        padding: 30px 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .shop-description {
+        font-size: 1.1em;
+        line-height: 1.6;
+    }
+
+    .shop-items {
+        font-size: 1.1em;
+        line-height: 1.6;
+        margin-top: 20px;
+    }
+
+    .shop-items ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .shop-items li {
+        margin-bottom: 15px;
+    }
+
+    .shop-items li p {
+        padding-left: 1em;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #f5a623;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-bold {
+        font-weight: bold;
+        color: #e2e2e2;
+    }
+
+    .shop-description,
+    .shop-items {
+        opacity: 0;
+        animation: fadeIn 2s forwards;
+    }
+
+    .shop-description {
+        animation-delay: 1s;
+    }
+
+    .shop-items {
+        animation-delay: 2s;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock styles %}

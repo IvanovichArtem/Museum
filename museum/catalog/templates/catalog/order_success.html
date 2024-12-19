@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .checkmark-icon {
+            font-size: 100px;
+            color: #4CAF50;
+            animation: bounce 1s ease infinite;
+        }
+
+        .back-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+
+        .back-button i {
+            margin-right: 10px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <i class="fas fa-check-circle checkmark-icon"></i>
+    <h1>{{ title }}</h1>
+    <p>Ваш заказ успешно оформлен! Мы скоро с вами свяжемся.</p>
+    <a href={% url "catalog:home" %} class="back-button">
+        <i class="fas fa-arrow-left"></i> Назад
+    </a>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+.empty-basket {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #f8f9fa;
+}
+
+.product-image {
+  width: 100px;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.container {
+  overflow-x: hidden;
+  max-width: 100%;
+  padding: 0 15px;
+}
+.card-body {
+  display: flex;
+  flex-wrap: wrap;
+}

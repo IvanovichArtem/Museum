@@ -1,0 +1,129 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>Контакты</title>
+{% endblock title %}
+
+{% block text %}
+<style>
+    #text {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        line-height: 1.8;
+        text-align: justify;
+        margin: 20px auto;
+        max-width: 900px;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    h2 {
+        text-align: center;
+        color: #444;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-info a {
+        font-size: 1.1em;
+        color: #0056b3;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .contact-info a:hover {
+        color: #004099;
+    }
+
+    .map-container {
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+        border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .contact-info a {
+            font-size: 1em;
+        }
+
+        iframe {
+            height: 300px;
+        }
+    }
+</style>
+
+<div id="text">
+    <h2>Контакты</h2>
+
+    <div class="contact-info">
+        <p>
+            Мы работаем со <span>вторника</span> по
+            <span>воскресенье</span> с 11:00 до 21:00. Кассы работают до 20:00.
+        </p>
+
+        <p>Понедельник - выходной.</p>
+
+        <p>
+            Основной: <a href="tel:+375171234567">+375 (17) 123-45-67</a>
+            <br>
+            Дополнительный: <a href="tel:+375178901234">+375 (17) 890-12-34</a>
+        </p>
+    </div>
+
+    <div class="map-container">
+        <a href="https://yandex.by/maps/org/muzey_arkhitekturnykh_miniatyur_strana_mini/1045812099/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee; font-size:12px; position:absolute; top:0px;">Музей архитектурных миниатюр Страна Мини</a>
+        <a href="https://yandex.by/maps/157/minsk/category/museum/184105894/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee; font-size:12px; position:absolute; top:14px;">Музей в Минске</a>
+        <a href="https://yandex.by/maps/157/minsk/category/gift_and_souvenir_shop/184108001/?utm_medium=mapframe&utm_source=maps"
+            style="color:#eee; font-size:12px; position:absolute; top:28px;">Магазин подарков и сувениров в Минске</a>
+        <iframe
+            src="https://yandex.by/map-widget/v1/?ll=27.568448%2C53.902125&mode=search&oid=1045812099&ol=biz&z=14.58"
+            allowfullscreen="true"></iframe>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('text').style.opacity = 1;
+    });
+</script>
+
+{% endblock text %}
